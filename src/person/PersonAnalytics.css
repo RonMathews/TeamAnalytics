@@ -37,6 +37,15 @@
     padding: 5px 0px 5px 5px;
 }
 
+.boxCollab {
+    border: 2px solid black;
+    width: 450px;
+    min-height: 200px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 5px 0px 5px 5px;
+}
+
 .collaborators {
   display: flex;
   flex-flow: row wrap;
