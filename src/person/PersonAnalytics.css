@@ -1,0 +1,62 @@
+.PersonAnalytics {
+  text-align: left;
+}
+
+.PersonAnalytics-header {
+  background-color: #222;
+  height: 40px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.PersonAnalytics-title {
+  padding-top: 5px;
+  font-size: 1.5em;
+}
+
+.Box-title {
+  font-size: 1.5rem;
+  margin: 10px 0px 10px 0px;
+}
+
+.PersonAnalytics-intro {
+  font-size: large;
+}
+
+.boxes {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.box {
+    border: 2px solid black;
+    width: 420px;
+    min-height: 200px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 5px 0px 5px 5px;
+}
+
+.collaborators {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.collabDetails {
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+
+.personaImage {
+  margin: auto !important;
+}
+.personaName {
+  font-size: small;
+}
+
+.collabNumber {
+  color: green;
+  font-size: 1.5rem;
+}
