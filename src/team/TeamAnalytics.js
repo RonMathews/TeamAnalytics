@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Persona } from "office-ui-fabric-react/lib/Persona";
 import './TeamAnalytics.css';
+import DataService from '../Service/DataService';
 
 export default class TeamAnalytics extends Component {
 
@@ -65,49 +66,13 @@ export default class TeamAnalytics extends Component {
   }
 
   render() {
-    let data = {
-      topCollaborator: [
-        {
-          name: "Vishal Kumawat",
-          count: 20
-        }, 
-        {
-          name: "Pooja Talawadekar",
-          count: 40
-        },
-        {
-          name: "Sonal Priya",
-          count: 10
-        }
-      ],
-      topChannels: [
-        {
-          name: "Bootcamp",
-          count: 63
-        },
-        {
-          name: "FC - Extensibility",
-          count: 44
-        },
-        {
-          name: "Service",
-          count: 42
-        },
-        {
-          name: "Web",
-          count: 15
-        },
-        {
-          name: "FC - Phone Auth",
-          count: 44
-        },
-        {
-          name: "People Ops",
-          count: 15
-        },
-        
-      ]
-    }
+    const url = "/team";
+    let data = await DataService.sendHttpRequest({
+      method: "GET",
+      url: url,
+      urlSignature: urlSignature
+    });
+    
     return (
       <div className="TeamAnalytics">
         <header className="TeamAnalytics-header">
