@@ -46,6 +46,16 @@
     padding: 5px 0px 5px 5px;
 }
 
+.boxImage {
+  background-color: #F3F2F0;
+  border: 2px solid black;
+  width: 840px;
+  min-height: 200px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 5px 0px 5px 5px;
+}
+
 .collaborators {
   display: flex;
   flex-flow: row wrap;
@@ -68,4 +78,10 @@
 .collabNumber {
   color: green;
   font-size: 1.5rem;
+}
+
+.imageWidth {
+  width: 800px;
+  margin-left: 20px;
+  margin-top: 20px;
 }

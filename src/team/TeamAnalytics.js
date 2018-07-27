@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Persona } from "office-ui-fabric-react/lib/Persona";
 import './TeamAnalytics.css';
 import DataService from '../Service/DataService';
+const image = require("../MentionNoReply.PNG");
+const image2 = require("../MostLiked.PNG");
+const image3 = require("../MostLiked2.PNG");
 
 export default class TeamAnalytics extends Component {
 
@@ -79,6 +82,21 @@ export default class TeamAnalytics extends Component {
          <div className="boxes">
             { TeamAnalytics.renderCollab(data.topCollaborator) }
             { TeamAnalytics.renderChannels(data.topChannels) }
+        </div>
+        <div className="boxes">
+          <div className="boxImage">
+            <div>
+              <div className="Box-title">
+                @ Mentions Without Replies
+                <img src={ image } className="imageWidth"/>
+              </div>
+              <div className="Box-title">
+                Most liked Messages
+                <img src={ image2 } className="imageWidth"/>
+                <img src={ image3 } className="imageWidth"/>
+              </div>
+            </div>
+          </div>
         </div>
       </div>)
     }, function(error)
