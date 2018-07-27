@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Persona } from "office-ui-fabric-react/lib/Persona";
 import './TeamAnalytics.css';
+import DataService from '../Service/DataService';
 
 export default class TeamAnalytics extends Component {
 
-  renderPersona(title, number, imageUrl) {
+  static renderPersona(title, number, imageUrl) {
     return(
       <div className="collabDetails">
         <Persona
@@ -16,7 +17,7 @@ export default class TeamAnalytics extends Component {
     );
   }
 
-  renderChannelPersona(title, number) {
+  static renderChannelPersona(title, number) {
     return(
       <div className="collabDetails">
         <Persona
@@ -28,9 +29,9 @@ export default class TeamAnalytics extends Component {
     )
   }
 
-  renderCollab(data) {
+  static renderCollab(data) {
     var details = data.map(function(element) {
-      return this.renderPersona(element.name, element.count);
+      return TeamAnalytics.renderPersona(element.name, element.count);
     }, this);
     return (
       <div className="boxCollab">
@@ -46,9 +47,9 @@ export default class TeamAnalytics extends Component {
     );
   }
 
-  renderChannels(data) {
+  static renderChannels(data) {
     var details = data.map(function(element) {
-      return this.renderChannelPersona(element.name, element.count);
+      return TeamAnalytics.renderChannelPersona(element.name, element.count);
     }, this);
     return (
       <div className="boxChannel" >
@@ -65,59 +66,26 @@ export default class TeamAnalytics extends Component {
   }
 
   render() {
-    let data = {
-      topCollaborator: [
-        {
-          name: "Vishal Kumawat",
-          count: 20
-        }, 
-        {
-          name: "Pooja Talawadekar",
-          count: 40
-        },
-        {
-          name: "Sonal Priya",
-          count: 10
-        }
-      ],
-      topChannels: [
-        {
-          name: "Bootcamp",
-          count: 63
-        },
-        {
-          name: "FC - Extensibility",
-          count: 44
-        },
-        {
-          name: "Service",
-          count: 42
-        },
-        {
-          name: "Web",
-          count: 15
-        },
-        {
-          name: "FC - Phone Auth",
-          count: 44
-        },
-        {
-          name: "People Ops",
-          count: 15
-        },
-        
-      ]
-    }
+    const url = "/team";
+    DataService.sendHttpRequest({
+      method: "GET",
+      url: url
+  }).then(function(data){
     return (
       <div className="TeamAnalytics">
         <header className="TeamAnalytics-header">
           <div className="TeamAnalytics-title">Team Insights</div>
         </header>
          <div className="boxes">
-            { this.renderCollab(data.topCollaborator) }
-            { this.renderChannels(data.topChannels) }
+            { TeamAnalytics.renderCollab(data.topCollaborator) }
+            { TeamAnalytics.renderChannels(data.topChannels) }
         </div>
-      </div>
-    );
+      </div>)
+    }, function(error)
+  {
+    return null;
+  });
+
+    return null;
   }
 }
