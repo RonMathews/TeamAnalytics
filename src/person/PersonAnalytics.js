@@ -84,7 +84,7 @@ export default class PersonAnalytics extends Component {
   }
 
   render() {
-    const url = "/team";
+    const url = "/personal";
     DataService.sendHttpRequest({
       method: "GET",
       url: url
