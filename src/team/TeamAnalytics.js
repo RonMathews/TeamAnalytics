@@ -8,6 +8,15 @@ const image3 = require("../MostLiked2.PNG");
 
 export default class TeamAnalytics extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      isLoading: true,
+      error: false,
+      data: null
+    };
+  }
+
   static renderPersona(title, number, imageUrl) {
     return(
       <div className="collabDetails">
@@ -68,20 +77,40 @@ export default class TeamAnalytics extends Component {
     );
   }
 
-  render() {
-    const url = "/team";
+  componentDidMount() {
+    let that = this;
     DataService.sendHttpRequest({
       method: "GET",
-      url: url
-  }).then(function(data){
+      url: "/team"
+    }).then(function(data){
+      that.setState({data: data, isLoading: false});
+    }, 
+    function(error){
+      that.setState({error: true, isLoading: false});
+    });
+  }
+  
+  render() {
+    if(this.state.isLoading) {
+      return (
+        <h2> Loading... </h2>
+      );
+    }
+
+    if(this.state.error) {
+      return (
+        <h2> Something went wrong </h2>
+      )
+    }
+
     return (
       <div className="TeamAnalytics">
         <header className="TeamAnalytics-header">
           <div className="TeamAnalytics-title">Team Insights</div>
         </header>
          <div className="boxes">
-            { TeamAnalytics.renderCollab(data.topCollaborator) }
-            { TeamAnalytics.renderChannels(data.topChannels) }
+            { TeamAnalytics.renderCollab(this.state.data.topCollaborator) }
+            { TeamAnalytics.renderChannels(this.state.data.topChannels) }
         </div>
         <div className="boxes">
           <div className="boxImage">
@@ -98,12 +127,7 @@ export default class TeamAnalytics extends Component {
             </div>
           </div>
         </div>
-      </div>)
-    }, function(error)
-  {
-    return null;
-  });
-
-    return null;
+      </div>
+    );
   }
 }

@@ -5,6 +5,15 @@ import DataService from '../Service/DataService';
 
 export default class PersonAnalytics extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      isLoading: true,
+      error: false,
+      data: null
+    };
+  }
+
   static renderPersona(title, number, imageUrl) {
     return(
       <div className="collabDetails">
@@ -83,29 +92,44 @@ export default class PersonAnalytics extends Component {
     );
   }
 
-  render() {
-    const url = "/personal";
+  componentDidMount() {
+    let that = this;
     DataService.sendHttpRequest({
       method: "GET",
-      url: url
-  }).then(function(data){
+      url: "/personal"
+    }).then(function(data){
+      that.setState({data: data, isLoading: false});
+    }, 
+    function(error){
+      that.setState({error: true, isLoading: false});
+    });
+  }
+  
+
+  render() {
+    if(this.state.isLoading) {
+      return (
+        <h2> Loading... </h2>
+      );
+    }
+
+    if(this.state.error) {
+      return (
+        <h2> Something went wrong </h2>
+      )
+    }
+
     return (
       <div className="PersonAnalytics">
         <header className="PersonAnalytics-header">
           <div className="PersonAnalytics-title">My Insights</div>
         </header>
          <div className="boxes">
-            { PersonAnalytics.renderCollab(data.topCollaborator) }
-            { PersonAnalytics.renderChannelMentions(data.topMentions) }
-            { PersonAnalytics.renderChannelContribution(data.topContributions) }
+            { PersonAnalytics.renderCollab(this.state.data.topCollaborator) }
+            { PersonAnalytics.renderChannelMentions(this.state.data.topMentions) }
+            { PersonAnalytics.renderChannelContribution(this.state.data.topContributions) }
         </div>
       </div>
     );
-  }, function(error)
-  {
-    return null;
-  });
-
-  return null;
-}
+  }
 }

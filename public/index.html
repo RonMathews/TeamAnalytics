@@ -23,49 +23,14 @@
     <script src="https://statics.teams.microsoft.com/sdk/v1.2/js/MicrosoftTeams.min.js"> </script>
     <script src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.15/js/adal.min.js" integrity="sha384-lIk8T3uMxKqXQVVfFbiw0K/Nq+kt1P3NtGt/pNexiDby2rKU6xnDY8p16gIwKqgI" crossorigin="anonymous"></script>
     <script>
-      (function() {
-        microsoftTeams.initialize();
-        // microsoftTeams.getContext(function (context) {
-        //           // ADAL.js configuration
-        //           var testDataElement = document.getElementById("testData");
-        //           testDataElement.innerHtml += "origin >>>> " + window.location.origin;
-        //           let config = {
-        //               clientId: "e4f206ed-e03d-4ac5-aa66-0b0d2cd947e2",
-        //               redirectUri: window.location.origin,       // This should be in the list of redirect uris for the AAD app
-        //               cacheLocation: "localStorage",
-        //               navigateToLoginRequestUrl: false,
-        //           };
-
-        //           let token = authContext.getCachedToken(config.clientId);
-        //           if (token) {
-        //               testDataElement.innerHtml += "token >>>> " + token;
-        //               return;
-        //           }
-        //           // Setup extra query parameters for ADAL
-        //           // - openid and profile scope adds profile information to the id_token
-        //           // - login_hint provides the expected user name
-        //           if (context.upn) {
-        //               config.extraQueryParameters = "scope=openid+profile&login_hint=" + encodeURIComponent(context.upn);
-        //           } else {
-        //               config.extraQueryParameters = "scope=openid+profile";              
-        //           }
-      
-        //           // Use a custom displayCall function to add extra query parameters to the url before navigating to it
-        //           config.displayCall = function (urlNavigate) {
-        //             testDataElement.innerHtml += "urlNavigate >>>> " + urlNavigate;
-        //               if (urlNavigate) {
-        //                   if (config.extraQueryParameters) {
-        //                       urlNavigate += "&" + config.extraQueryParameters;
-        //                   }
-        //                   window.location.replace(urlNavigate);
-        //               }
-        //               testDataElement.innerHtml += "  updated urlNavigate >>>> " + urlNavigate;
-        //           }
-        //           // Navigate to the AzureAD login page        
-        //           let authContext = new AuthenticationContext(config);
-        //           authContext.login();
-        //       });
+        var analyticsContext;
+        (function() {
+            microsoftTeams.initialize();
+            microsoftTeams.getContext(function (context) {
+                analyticsContext = context;
+            });
         })();
+        localStorage.analyticsContext = analyticsContext;
     </script>
   </head>
   <body>
@@ -83,6 +48,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <div id="testData" style="background: blue; font-color: white;"> </div>
   </body>
 </html>
