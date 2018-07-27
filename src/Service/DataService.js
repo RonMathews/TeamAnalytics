@@ -7,7 +7,7 @@ import axios, {
 
 export default class DataService {
     static async sendHttpRequest(requestConfig) {
-        let endpoint = "http://teamhackanalyticsservice.cloudapp.net";
+        let endpoint = "http://localhost:3391/";
         let request = {
             baseURL: endpoint,
             method: requestConfig.method,
