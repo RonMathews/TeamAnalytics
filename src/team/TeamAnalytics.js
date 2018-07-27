@@ -5,7 +5,7 @@ import DataService from '../Service/DataService';
 
 export default class TeamAnalytics extends Component {
 
-  renderPersona(title, number, imageUrl) {
+  static renderPersona(title, number, imageUrl) {
     return(
       <div className="collabDetails">
         <Persona
@@ -17,7 +17,7 @@ export default class TeamAnalytics extends Component {
     );
   }
 
-  renderChannelPersona(title, number) {
+  static renderChannelPersona(title, number) {
     return(
       <div className="collabDetails">
         <Persona
@@ -29,9 +29,9 @@ export default class TeamAnalytics extends Component {
     )
   }
 
-  renderCollab(data) {
+  static renderCollab(data) {
     var details = data.map(function(element) {
-      return this.renderPersona(element.name, element.count);
+      return TeamAnalytics.renderPersona(element.name, element.count);
     }, this);
     return (
       <div className="boxCollab">
@@ -47,9 +47,9 @@ export default class TeamAnalytics extends Component {
     );
   }
 
-  renderChannels(data) {
+  static renderChannels(data) {
     var details = data.map(function(element) {
-      return this.renderChannelPersona(element.name, element.count);
+      return TeamAnalytics.renderChannelPersona(element.name, element.count);
     }, this);
     return (
       <div className="boxChannel" >
@@ -67,22 +67,25 @@ export default class TeamAnalytics extends Component {
 
   render() {
     const url = "/team";
-    let data = await DataService.sendHttpRequest({
+    DataService.sendHttpRequest({
       method: "GET",
-      url: url,
-      urlSignature: urlSignature
-    });
-    
+      url: url
+  }).then(function(data){
     return (
       <div className="TeamAnalytics">
         <header className="TeamAnalytics-header">
           <div className="TeamAnalytics-title">Team Insights</div>
         </header>
          <div className="boxes">
-            { this.renderCollab(data.topCollaborator) }
-            { this.renderChannels(data.topChannels) }
+            { TeamAnalytics.renderCollab(data.topCollaborator) }
+            { TeamAnalytics.renderChannels(data.topChannels) }
         </div>
-      </div>
-    );
+      </div>)
+    }, function(error)
+  {
+    return null;
+  });
+
+    return null;
   }
 }

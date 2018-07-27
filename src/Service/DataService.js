@@ -6,21 +6,20 @@ import axios, {
     } from "axios";
 
 export default class DataService {
-    async sendHttpRequest(requestConfig) {
+    static async sendHttpRequest(requestConfig) {
         let endpoint = "http://teamhackanalyticsservice.cloudapp.net";
         let request = {
             baseURL: endpoint,
             method: requestConfig.method,
-            url: requestConfig.url,
-            withCredentials: withCredentials
+            url: requestConfig.url
         };
 
         if (requestConfig.headers) {
             request.headers = requestConfig.headers;
         }
          try {
-            axiosClient: AxiosInstance = axios.create();
-            let response = await this.axiosClient.request(request);
+            let axiosClient = axios.create();
+            let response = await axiosClient.request(request);
             return response;
         } catch (err) {
             const httpError = err;
