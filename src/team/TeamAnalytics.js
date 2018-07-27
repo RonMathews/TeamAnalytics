@@ -91,6 +91,50 @@ export default class TeamAnalytics extends Component {
   }
   
   render() {
+    let data = {
+        topCollaborator: [
+          {
+            name: "Vishal Kumawat",
+            count: 20
+          }, 
+          {
+            name: "Pooja Talawadekar",
+            count: 40
+          },
+          {
+            name: "Sonal Priya",
+            count: 10
+          }
+        ],
+        topChannels: [
+          {
+            name: "Bootcamp",
+            count: 63
+          },
+          {
+            name: "FC  Extensibility",
+            count: 44
+          },
+          {
+            name: "Service",
+            count: 42
+          },
+          {
+            name: "Web",
+            count: 15
+          },
+          {
+            name: "FC  Phone Auth",
+            count: 44
+          },
+          {
+            name: "People Ops",
+            count: 15
+          },
+          
+        ]
+      }
+
     if(this.state.isLoading) {
       return (
         <h2> Loading... </h2>
@@ -99,8 +143,31 @@ export default class TeamAnalytics extends Component {
 
     if(this.state.error) {
       return (
-        <h2> Something went wrong </h2>
-      )
+        <div className="TeamAnalytics">
+          <header className="TeamAnalytics-header">
+            <div className="TeamAnalytics-title">Team Insights</div>
+          </header>
+          <div className="boxes">
+              { TeamAnalytics.renderCollab(data.topCollaborator) }
+              { TeamAnalytics.renderChannels(data.topChannels) }
+          </div>
+          <div className="boxes">
+            <div className="boxImage">
+              <div>
+                <div className="Box-title">
+                  @ Mentions Without Replies
+                  <img src={ image } className="imageWidth"/>
+                </div>
+                <div className="Box-title">
+                  Most liked Messages
+                  <img src={ image2 } className="imageWidth"/>
+                  <img src={ image3 } className="imageWidth"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     }
 
     return (

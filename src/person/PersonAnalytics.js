@@ -107,6 +107,55 @@ export default class PersonAnalytics extends Component {
   
 
   render() {
+    let data = {
+      topCollaborator: [
+        {
+          name: "Sharon Mathews",
+          count: 33
+        }, 
+        {
+          name: "Ambili Edathodi",
+          count: 30
+        },
+        {
+          name: "Megha Meshram",
+          count: 13
+        },
+        {
+          name: "Sathya Swathy",
+          count: 39
+        }
+      ],
+      topMentions: [
+        {
+          name: "FC  Extensibility",
+          count: 4
+        },
+        {
+          name: "Service",
+          count: 7
+        },
+        
+        {
+          name: "People Ops",
+          count: 3
+        },
+      ],
+      topContributions: [
+        {
+          name: "Bootcamp",
+          count: 63
+        },
+        {
+          name: "Web",
+          count: 15
+        },
+        {
+          name: "FC  Phone Auth",
+          count: 44
+        },
+      ]
+    }
     if(this.state.isLoading) {
       return (
         <h2> Loading... </h2>
@@ -115,8 +164,17 @@ export default class PersonAnalytics extends Component {
 
     if(this.state.error) {
       return (
-        <h2> Something went wrong </h2>
-      )
+        <div className="PersonAnalytics">
+          <header className="PersonAnalytics-header">
+            <div className="PersonAnalytics-title">My Insights</div>
+          </header>
+          <div className="boxes">
+              { PersonAnalytics.renderCollab(data.topCollaborator) }
+              { PersonAnalytics.renderChannelMentions(data.topMentions) }
+              { PersonAnalytics.renderChannelContribution(data.topContributions) }
+          </div>
+        </div>
+      );
     }
 
     return (
